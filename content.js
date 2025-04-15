@@ -1,3 +1,10 @@
+let userInteracted = false;
+
+document.addEventListener('click', () => {
+    console.log('Пользователь взаимодействовал с документом');
+  userInteracted = true;
+});
+
 // Загрузка настроек из хранилища
 chrome.storage.local.get([
     'interval', 
@@ -14,9 +21,14 @@ chrome.storage.local.get([
           if (result.found) {
             console.log('НАЙДЕН ЦЕЛЕВОЙ СЕРВИСНЫЙ ЦЕНТР:', result.serviceCenterData);
             
-            // Воспроизводим звуковой сигнал
-            const audio = new Audio(chrome.runtime.getURL('audio/alert.mp3'));
-            audio.play();
+            // Воспроизводим звуковой сигнал ТОЛЬКО если пользователь взаимодействовал
+            if (userInteracted) {
+                const audio = new Audio(chrome.runtime.getURL('audio/alarm.mp3'));
+                audio.play().catch(e => console.warn('Звук не воспроизведён:', e));
+            } else {
+                console.warn('Звук заблокирован, не было взаимодействия с пользователем');
+            }
+            sendToTelegram();
             
           }
           
@@ -65,6 +77,17 @@ chrome.storage.local.get([
   
       (document.head || document.documentElement).appendChild(script);
       script.remove(); // удалим после выполнения
+    });
+  }
+
+  function sendToTelegram() {
+    fetch('https://api.telegram.org/bot165301541:AAEZJhUNLx1KXJWts3McIpkgJpQaho8kxfo/sendMessage?chat_id=156531024&text=mreo')
+    .then(response => response.json())
+    .then(data => {
+        console.log('Ответ сервера:', data);
+    })
+    .catch(err => {
+        console.error('Ошибка запроса:', err);
     });
   }
   
