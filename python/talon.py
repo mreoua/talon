@@ -3,8 +3,11 @@ from datetime import datetime, timedelta
 import time
 import random
 
-token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlubiI6IjI4MjM2MTg3MzMiLCJwaG9uZSI6IiIsImVtYWlsIjoiIiwiZ2l2ZW5uYW1lIjoi0JLQntCb0J7QlNCY0JzQmNCgIiwibWlkZGxlbmFtZSI6ItCb0JXQntCd0IbQlNCe0JLQmNCnIiwibGFzdG5hbWUiOiLQn9Ce0J_QntCSIiwib3JnYW5pemF0aW9uIjoi0KTQhtCX0JjQp9Cd0JAg0J7QodCe0JHQkCIsImVkcnBvdSI6IiJ9LCJleHAiOjE3NDU4MzAyOTcuMTI5LCJpYXQiOjE3NDU4MjMwOTd9.sfZ94t1JdfuIburgRrYuHeT6hVEYKvoSU0IbnccGc7r3-YfMLnPSa9yLKtdOMqxrsg3Wp8P3Fqyk5lit37UlKBHeQanQmPbHw5JCFWslogafb05Uo1h_ZxiopauUcMQiBJRTZCvryFR3C8637dAAHrdfn_CiV4EZLL_VxHuMmLfyghLIh1BqYaKYEZ2pSHFSXXDzd9NpZF5G4Y4sf0loymQhuVYEGG-XWRgAf_mSpiMdZkaye-xzq3h7_nyPl0oZKNQ3LK7RDfpY1Sfs_1bEFk2Pu3rlCZtqLKBSiezsd9hjzZxalZwuxOEggo5218t9AqbocMlKIj_oY0V86P8SNQ; bm_mi=E3B214C0523E529002FDE17470ADD23F~YAAQn2ReaJmbsHSWAQAAeWQqext3tumc5mLQKO3UMHyuvONIJ6u+A3W5nxZ/VI1+zkA2/sLRb6sverpUR/rhxN27h2AHsi3fhpgfp8vgn97yOC42uKMC22shKsi3F+d7duNihf2ULkisdSCrpbwT466n2G0f6RunZeJMQEByKgmaHP3lSxC2JUpP0uyyq4X0rlVZ/Zm37WgZEdIhIv9arpYliW5BvMKB/XfVJbOtRA/ZPjwBqGaPVjmUDMHr3NmMnwCAipNBAtWrgI27PKQY2YZ0nne/YabuXgUYwDnNVrUS6yyyv6UvmBVpkjj++JwXEOGY7YM=~1'
+#token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlubiI6IjI4MjM2MTg3MzMiLCJwaG9uZSI6IiIsImVtYWlsIjoiIiwiZ2l2ZW5uYW1lIjoi0JLQntCb0J7QlNCY0JzQmNCgIiwibWlkZGxlbmFtZSI6ItCb0JXQntCd0IbQlNCe0JLQmNCnIiwibGFzdG5hbWUiOiLQn9Ce0J_QntCSIiwib3JnYW5pemF0aW9uIjoi0KTQhtCX0JjQp9Cd0JAg0J7QodCe0JHQkCIsImVkcnBvdSI6IiJ9LCJleHAiOjE3NDU4MzkzOTkuMTI3LCJpYXQiOjE3NDU4MzIxOTl9.WEOc03VdTeLz_EaPkZojmUT4GdiOX9M8xHYoRc-cj8rD7bdlXxTAtb2Ntg13InQVNjD-50WzYkPYfnHwL_JzU-d823L3JR3Xea4okhqiglIZ69Zp19OKQf-dmaOHzqeKJfstMYKx0objH97f9qm_PViLJpEe2kZ85xCUsNZSL8__Bv7_eh-ZnsU8XxH_3Ep5-cpjDyXfBURQRsEN5rdR21B_P_U1Cg_mAk4aGyvEN66bTcOp2qzZZkUMmllwu8Vj_sytvdyoWVDfV78hZNcNWnSJK2pWd3h-keUz2qpNhBLimEYHrD1hm1reUZu5M5dDHqTlRDzZv716jQ_17IpTVw; bm_mi=D1D79657F120BBADA08BF46E69496E0B~YAAQbDYQYOnw6HqWAQAA1kW1exvhtDOQ22BGins0bHJABVABH/TLu/pKt1G+6mtNqqLPCaULm6rVvbCh+NlVjtEU59n25Z6W0IeDv4dNfzYCc04i1DDD5NOU93H5BLTN8AmC49RXr6Cfg219jOSx/5pjyuz4pULA3lLmTe8MR28OqwG1iXR/y26C6fgJbUrMOTJn9MgsOHOUXjswQP0bN4Q/rxh3KTCW3tmMXIiFqoFfUcFY51Ac9Qa9B1tFG/6kzAV0faCZQXcQQuOh3TZt70hXz80sbn+XLdrKV7aYkyJjPkC0Qo9TzzYnUZYJd4FLqtkebCc=~1'
 
+def getToken():
+	with open('token.txt') as f:
+		return f.read()
 
 def sendToTelegram(text):
 	print(text)
@@ -74,13 +77,18 @@ def getNext20Days(start_date=None):
 	
 	return date_list, first, last
 
+def haveTalon(d):
+	for i in range(3):
+		sendToTelegram('mreo: have talon on %s' % (d))
+		time.sleep(20)
+
 def test():
 	print(getNext20Days())
-	sendToTelegram('pop')
+	print(getToken())
 
 
 def main():
-	
+	token = getToken()
 	dates, first, last = getNext20Days()
 	print('%s - %s' % (first, last))
 	while True:
@@ -100,9 +108,10 @@ def main():
 				sendToTelegram('mreo some error code - %s' % (res.status_code))
 				time.sleep(60)
 			elif d := checkTalon(res.json(), date):
-				sendToTelegram('mreo: have talon on %s' % (d))
-
-			print('%s - %s' % (date, len(res.json())))
+				haveTalon(d)
+				time.sleep(120)
+			else:
+				print('%s - %s' % (date, len(res.json())))
 
 			time.sleep(random.randint(4, 9))
 		print('---')
